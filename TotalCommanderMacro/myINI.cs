@@ -232,24 +232,26 @@ namespace TotalCommanderMacro
   				right.ValuesList.Add(new myValue(@"path="+_rightTabs[0].Pth));
   				right.ValuesList.Add(new myValue(@"show=1"));
   			}
-  			myAtribute rightTabs = null;
+  			myAtribute rightTabs = new myAtribute("[righttabs]");
   			if (_rightTabs.Count>1) {
-  				rightTabs = new myAtribute("[righttabs]");
-  				for (int i = 1; i <= _rightTabs.Count-1; i++) {
-  					rightTabs.ValuesList.Add(new myValue(i-1+"_path="+_rightTabs[i].Pth));
-  					if (_rightTabs[i].Locked) {
-  						rightTabs.ValuesList.Add(new myValue(i-1+"_options=1|0|0|0|0|1|0"));
-  					} else {
-  						rightTabs.ValuesList.Add(new myValue(i-1+"_options=1|0|0|0|0|0|0"));
-  					}
-  				}
-  				rightTabs.ValuesList.Add(new myValue(@"activetab=0"));
-  				if (_rightTabs[0].Locked) {
-  					rightTabs.ValuesList.Add(new myValue(@"activelocked=1"));
-  				} else{
-  					rightTabs.ValuesList.Add(new myValue(@"activelocked=0"));
-  				}
+				for (int i = 1; i <= _rightTabs.Count-1; i++) {
+					rightTabs.ValuesList.Add(new myValue(i-1+"_path="+_rightTabs[i].Pth));
+					if (_rightTabs[i].Locked) {
+						rightTabs.ValuesList.Add(new myValue(i-1+"_options=1|0|0|0|0|1|0"));
+					} else {
+						rightTabs.ValuesList.Add(new myValue(i-1+"_options=1|0|0|0|0|0|0"));
+					}
+				}  				
   			}
+  			if (_rightTabs.Count>0) {
+				rightTabs.ValuesList.Add(new myValue(@"activetab=0"));
+				if (_rightTabs[0].Locked) {
+					rightTabs.ValuesList.Add(new myValue(@"activelocked=1"));
+				} else{
+					rightTabs.ValuesList.Add(new myValue(@"activelocked=0"));
+				}
+  			}
+
   			
 			if (right != null)
 				_atributesList.Add(right);
@@ -264,9 +266,8 @@ namespace TotalCommanderMacro
   				left.ValuesList.Add(new myValue(@"path="+_leftTabs[0].Pth));
   				left.ValuesList.Add(new myValue(@"show=1"));
   			}
-  			myAtribute leftTabs = null;
+  			myAtribute leftTabs = new myAtribute("[leftTabs]");
   			if (_leftTabs.Count>1) {
-  				leftTabs = new myAtribute("[leftTabs]");
   				for (int i = 1; i <= _leftTabs.Count-1; i++) {
   					leftTabs.ValuesList.Add(new myValue(i-1+"_path="+_leftTabs[i].Pth));
   					if (_leftTabs[i].Locked) {
@@ -275,13 +276,16 @@ namespace TotalCommanderMacro
   						leftTabs.ValuesList.Add(new myValue(i-1+"_options=1|0|0|0|0|0|0"));
   					}
   				}
-  				leftTabs.ValuesList.Add(new myValue(@"activetab=0"));
-  				if (_leftTabs[0].Locked) {
-  					leftTabs.ValuesList.Add(new myValue(@"activelocked=1"));
-  				} else{
-  					leftTabs.ValuesList.Add(new myValue(@"activelocked=0"));
-  				}
+			}
+  			if (_leftTabs.Count>0) {
+				leftTabs.ValuesList.Add(new myValue(@"activetab=0"));
+				if (_leftTabs[0].Locked) {
+					leftTabs.ValuesList.Add(new myValue(@"activelocked=1"));
+				} else{
+					leftTabs.ValuesList.Add(new myValue(@"activelocked=0"));
+				}
   			}
+  			
   			
 			if (left != null)
 				_atributesList.Add(left);
