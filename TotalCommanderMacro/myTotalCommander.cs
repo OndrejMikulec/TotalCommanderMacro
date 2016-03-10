@@ -36,6 +36,8 @@ namespace TotalCommanderMacro
 	   	public bool HasValue { get; set;}
 		}
 		
+		static string iniPath;
+		
 
 		public static myINI CloseTCGetIni()
 		{
@@ -57,7 +59,7 @@ namespace TotalCommanderMacro
 				winRect.HasValue = false;
 			}
 			
-			string iniPath = null;
+			
 			bool definedINI = false;
 			readDefinedLocations( getDefinedINIPath(),out iniPath, out definedINI);
 			
@@ -76,14 +78,23 @@ namespace TotalCommanderMacro
       			System.Drawing.Rectangle rec = System.Windows.Forms.Screen.PrimaryScreen.Bounds;
       			myAtribute scr = oMyIni.AtributesList.Find(item => item.Name.Contains(rec.Width+"x"+rec.Height));
       			if (scr!=null) {
-      				myValue x = scr.ValuesList.Find(item => item.ValName == "x");
-      				x.Value = winRect.Left.ToString();
-      				myValue y = scr.ValuesList.Find(item => item.ValName == "y");
-      				y.Value = winRect.Top.ToString();
-      				myValue dx = scr.ValuesList.Find(item => item.ValName == "dx");
-      				dx.Value = winRect.Width.ToString();
-      				myValue dy = scr.ValuesList.Find(item => item.ValName == "dy");
-      				dy.Value = winRect.Height.ToString();
+      				if (scr.ValuesList.Exists(item => item.ValName == "x")) {
+      					myValue x = scr.ValuesList.Find(item => item.ValName == "x");
+      					x.Value = winRect.Left.ToString();
+      				}
+      				if (scr.ValuesList.Exists(item => item.ValName == "y")) {
+      					myValue y = scr.ValuesList.Find(item => item.ValName == "y");
+      					y.Value = winRect.Top.ToString();
+      				}
+      				if (scr.ValuesList.Exists(item => item.ValName == "dx")) {
+      					myValue dx = scr.ValuesList.Find(item => item.ValName == "dx");
+      					dx.Value = winRect.Width.ToString();
+      				}
+      				if (scr.ValuesList.Exists(item => item.ValName == "dy")) {
+      					myValue dy = scr.ValuesList.Find(item => item.ValName == "dy");
+      					dy.Value = winRect.Height.ToString();
+      				}
+ 
       			} 
   			}
 			
@@ -111,6 +122,7 @@ namespace TotalCommanderMacro
 
 			ProcessStartInfo processStartInfo = new ProcessStartInfo();
     		processStartInfo.FileName = TCPath;
+    		processStartInfo.Arguments = @"/I="+iniPath;
    			 Process.Start(processStartInfo);
    			 return;
 
