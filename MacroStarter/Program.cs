@@ -29,7 +29,9 @@ Target folder without \ at the end
 -LL left table lock tab
 -Rl right table lock tab
 -Clear clear all unlocked tabs
-			}");
+
+For keep TC window size and position, you must first once save position in TC configuration menu."
+			);
 				Console.ReadKey(false);
 				return;
 			}
@@ -49,9 +51,10 @@ Target folder without \ at the end
 
 			}
 			
-			if (TabCheck(tabs)) {
+			if (!TabCheck(tabs)) {
 				Console.Write(@"Some of input paths do not exists or the arguments are fault!"); 
 				Console.ReadKey(false);
+				return;
 			}
 			
 			int positionL = 0;

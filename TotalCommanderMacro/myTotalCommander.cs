@@ -13,34 +13,14 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Linq;
 using System.Windows.Forms;
+using System.Text;
 
 namespace TotalCommanderMacro
 {
 
 	public static class myTotalCommander
 	{
-		static string[] TCLocations = {
-			@"c:\Program Files (x86)\totalcmd\TOTALCMD64.EXE",
-			@"c:\Program Files\totalcmd\TOTALCMD64.EXE",
-			@"c:\totalcmd\\TOTALCMD64.EXE"
-		};
-		
-		public static string getTCLocation()
-		{
-			foreach (var loc in TCLocations) {
-				if (File.Exists(loc)) {
-					return loc;
-				}
-			}
-			return null;
-		}
-		
-		static string[] INILocations = {
-			Path.GetDirectoryName( Environment.GetFolderPath(Environment.SpecialFolder.Personal)) + @"\wincmd.ini",
-			Path.GetDirectoryName( Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + @"\GHISLER\wincmd.ini",
-			Path.GetDirectoryName( Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)) + @"\Roaming\GHISLER\wincmd.ini"
-		};
-		
+
 		public enum Side {L,R}
 		
 		[DllImport("user32.dll")]
@@ -56,13 +36,13 @@ namespace TotalCommanderMacro
 	   	public bool HasValue { get; set;}
 		}
 		
-		[STAThreadAttribute]
+
 		public static myINI CloseTCGetIni()
 		{
 			
 			Process[] processNames = Process.GetProcessesByName("TOTALCMD64");
 			if (processNames.Length>1) {
-				MessageBox.Show("Aplikace pracuje pouze s jedním otevřeným Total Commanderem!");
+				MessageBox.Show("Macro is writed for only one TC running!");
 				return null;
 			}
 			
@@ -77,6 +57,108 @@ namespace TotalCommanderMacro
 				winRect.HasValue = false;
 			}
 			
+			string iniPath = null;
+			bool definedINI = false;
+			readDefinedLocations( getDefinedINIPath(),out iniPath, out definedINI);
+			
+			if (!definedINI) {
+				iniPath = autoDetectionINI(out definedINI);
+			}
+			
+			if (!definedINI) {
+				MessageBox.Show("Ini not found!");
+				return null;
+			}
+
+			myINI oMyIni = new myINI(iniPath);
+			
+			if (winRect.HasValue) {
+      			System.Drawing.Rectangle rec = System.Windows.Forms.Screen.PrimaryScreen.Bounds;
+      			myAtribute scr = oMyIni.AtributesList.Find(item => item.Name.Contains(rec.Width+"x"+rec.Height));
+      			if (scr!=null) {
+      				myValue x = scr.ValuesList.Find(item => item.ValName == "x");
+      				x.Value = winRect.Left.ToString();
+      				myValue y = scr.ValuesList.Find(item => item.ValName == "y");
+      				y.Value = winRect.Top.ToString();
+      				myValue dx = scr.ValuesList.Find(item => item.ValName == "dx");
+      				dx.Value = winRect.Width.ToString();
+      				myValue dy = scr.ValuesList.Find(item => item.ValName == "dy");
+      				dy.Value = winRect.Height.ToString();
+      			} 
+  			}
+			
+			return oMyIni;
+			
+		}
+		
+
+		
+		public static void RunTotalCommander()
+		{
+			string TCPath = null;
+			bool definedTC = false;
+			readDefinedLocations( getDefinedTCPath(),out TCPath, out definedTC);
+			
+			if (!definedTC) {
+				TCPath = autoDetectionTC(out definedTC);
+			}
+			
+			if (!definedTC) {
+				MessageBox.Show("TC not found!");
+				return;
+			}
+			
+
+			ProcessStartInfo processStartInfo = new ProcessStartInfo();
+    		processStartInfo.FileName = TCPath;
+   			 Process.Start(processStartInfo);
+   			 return;
+
+			
+
+
+		}
+		
+		static void readDefinedLocations(string path ,out string output, out bool ok)
+		{
+			if (!File.Exists(path)) {
+				using (File.Create(path)) {	}
+			}
+			
+			try {
+				using (StreamReader rdr = new StreamReader(path,Encoding.Default)) {
+					output = rdr.ReadLine().Trim();
+					ok = File.Exists(output);
+				}
+			} catch {
+				output = null;
+				ok = false;
+			}
+		}
+		
+		static string getEXEDirectory()
+		{
+			string exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+        	return Path.GetDirectoryName(exePath);
+		}
+		
+		static string getDefinedTCPath()
+		{
+        	return getEXEDirectory() + @"\TCDefinedPath.ini";
+		}
+				
+		static string getDefinedINIPath()
+		{
+        	return getEXEDirectory() + @"\INIDefinedPath.ini";
+		}
+		
+		static readonly string[] INILocations = {
+			Path.GetDirectoryName( Environment.GetFolderPath(Environment.SpecialFolder.Personal)) + @"\wincmd.ini",
+			Path.GetDirectoryName( Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + @"\GHISLER\wincmd.ini",
+			Path.GetDirectoryName( Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)) + @"\Roaming\GHISLER\wincmd.ini"
+		};
+		static string autoDetectionINI(out bool ok)
+		{
 			var iniList = new List<FileInfo>();
 			foreach (var fil in INILocations) {
 				if (File.Exists(fil)) {
@@ -84,31 +166,32 @@ namespace TotalCommanderMacro
 				}
 			}
 			
-			if (iniList.Count==0) {
-				MessageBox.Show("Ini soubor nenalezen!");
+			if (iniList.Count < 1) {
+				ok = false;
 				return null;
 			}
 			
 			FileInfo ini = iniList.Find( item => item.LastWriteTime==iniList.Max(item2 => item2.LastWriteTime));
-			
-			return new myINI(ini.FullName);
-			
+			ok = true;
+			return ini.FullName;
 		}
 		
-		public static void RunTotalCommander()
+		static readonly string[] TCLocations = {
+			@"c:\Program Files (x86)\totalcmd\TOTALCMD64.EXE",
+			@"c:\Program Files\totalcmd\TOTALCMD64.EXE",
+			@"c:\totalcmd\\TOTALCMD64.EXE"
+		};
+		
+		public static string autoDetectionTC(out bool ok)
 		{
-			foreach (string loc in TCLocations) {
+			foreach (var loc in TCLocations) {
 				if (File.Exists(loc)) {
-					ProcessStartInfo processStartInfo = new ProcessStartInfo();
-		    		processStartInfo.FileName = loc;
-		   			 Process.Start(processStartInfo);
-		   			 return;
+					ok = true;
+					return loc;
 				}
 			}
-			
-			MessageBox.Show("Total Commander nebyl nalezen!");
-			
-			
+			ok = false;
+			return null;
 		}
 
 	}

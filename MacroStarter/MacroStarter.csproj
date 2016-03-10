@@ -35,7 +35,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
     <StartAction>Project</StartAction>
-    <StartArguments>"-Clear" "-L c:\Users\Ondra\Documents\SharpDevelop Projects" "-R c:\Users\Ondra" "-RL c:\Users\Ondra\Documents\SharpDevelop Projects"</StartArguments>
+    <StartArguments>"-Clear" "-LU c:\Users\Ondra\Documents\SharpDevelop Projects" "-RU c:\Users\Ondra" "-RL c:\Users\Ondra\Documents\SharpDevelop Projects"</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <OutputPath>bin\Release\</OutputPath>
