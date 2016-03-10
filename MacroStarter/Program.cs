@@ -16,6 +16,13 @@ namespace MacroStarter
 {
 	class Program
 	{
+		const string sign = @"Author: Ondrej Mikulec
+Vsetin, Czech Republic
+o.mikulec@seznam.cz
+Mikulec.Ondrej@gmail.com
+
+";
+		
 		const string help = @"Valid arguments example: 
 ""-Clear"" ""-LU c:\Users\Ondra\Documents\SharpDevelop Projects"" ""-RU c:\Users\Ondra"" ""-RL c:\Users\Ondra\Documents\SharpDevelop Projects""
 
@@ -29,10 +36,12 @@ Target folder without \ at the end
 
 For keep TC window size and position, you must first once save position in TC configuration menu.
 
-Macro is looking for standart TC and ini file locations. You can difine your locations in files INIDefinedPath.ini and TCDefinedPath.ini";
+Macro is looking for standart TC and ini file locations. You can difine your locations in files INIDefinedPath.ini and TCDefinedPath.ini
+";
 		
 		public static void Main(string[] args)
 		{
+			Console.Write(sign);
 			
 			if (args.Length<1||args[0]=="help") {
 				Console.Write(help);
