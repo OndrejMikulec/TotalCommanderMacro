@@ -16,16 +16,9 @@ namespace TotalCommanderMacro
 	public class myTab
 	{
 		public enum strana {L,R}
-		strana _str;
-
-		public strana Strana {
-			get {
-				return _str;
-			}
-		}
+		public strana Strana { get; set;}
 
 		string _pth;
-
 		public string Pth {
 			get {
 				return _pth;
@@ -33,34 +26,30 @@ namespace TotalCommanderMacro
 		}
 
 		bool _locked;
-
 		public bool Locked {
 			get {
 				return _locked;
 			}
 		}
 
-		int _position;
-
-		public int Position {
-			get {
-				return _position;
-			}
-			set {
-				_position = value;
-			}
-		}
+		public int Position { get; set;	}
+		
 		public myTab(string pth,int locked, int position,strana str )
 		{
 			_pth = pth;
-			if (locked==1) {
-				_locked = true;
-			} else {
-				_locked = false;
-			}
+			_locked = locked == 1;
 			
-			_position = position;
-			_str = str;
+			Position = position;
+			Strana = str;
+		}
+		
+		public myTab(string pth,bool locked, int position,strana str )
+		{
+			_pth = pth;
+			_locked = locked;
+
+			Position = position;
+			Strana = str;
 		}
 	}
 }

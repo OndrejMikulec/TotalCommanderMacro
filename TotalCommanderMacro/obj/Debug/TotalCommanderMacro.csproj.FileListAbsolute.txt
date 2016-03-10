@@ -1,6 +1,6 @@
 C:\Users\Ondra\Documents\SharpDevelop Projects\TotalCommanderMacro\TotalCommanderMacro\obj\Debug\TotalCommanderMacro.csprojResolveAssemblyReference.cache
-C:\Users\Ondra\Documents\SharpDevelop Projects\TotalCommanderMacro\TotalCommanderMacro\bin\Debug\TotalCommanderMacro.exe.config
-C:\Users\Ondra\Documents\SharpDevelop Projects\TotalCommanderMacro\TotalCommanderMacro\bin\Debug\TotalCommanderMacro.exe
 C:\Users\Ondra\Documents\SharpDevelop Projects\TotalCommanderMacro\TotalCommanderMacro\bin\Debug\TotalCommanderMacro.pdb
-C:\Users\Ondra\Documents\SharpDevelop Projects\TotalCommanderMacro\TotalCommanderMacro\obj\Debug\TotalCommanderMacro.exe
 C:\Users\Ondra\Documents\SharpDevelop Projects\TotalCommanderMacro\TotalCommanderMacro\obj\Debug\TotalCommanderMacro.pdb
+C:\Users\Ondra\Documents\SharpDevelop Projects\TotalCommanderMacro\TotalCommanderMacro\bin\Debug\TotalCommanderMacro.dll.config
+C:\Users\Ondra\Documents\SharpDevelop Projects\TotalCommanderMacro\TotalCommanderMacro\bin\Debug\TotalCommanderMacro.dll
+C:\Users\Ondra\Documents\SharpDevelop Projects\TotalCommanderMacro\TotalCommanderMacro\obj\Debug\TotalCommanderMacro.dll

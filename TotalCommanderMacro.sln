@@ -6,6 +6,8 @@ VisualStudioVersion = 12.0.20827.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TotalCommanderMacro", "TotalCommanderMacro\TotalCommanderMacro.csproj", "{7C3A5324-B2A1-4688-8F4D-18D320EA83CD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MacroStarter", "MacroStarter\MacroStarter.csproj", "{F17957B3-24C8-404C-90CE-A3B1272253CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -16,5 +18,9 @@ Global
 		{7C3A5324-B2A1-4688-8F4D-18D320EA83CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C3A5324-B2A1-4688-8F4D-18D320EA83CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C3A5324-B2A1-4688-8F4D-18D320EA83CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F17957B3-24C8-404C-90CE-A3B1272253CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F17957B3-24C8-404C-90CE-A3B1272253CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F17957B3-24C8-404C-90CE-A3B1272253CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F17957B3-24C8-404C-90CE-A3B1272253CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
