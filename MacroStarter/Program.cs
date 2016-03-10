@@ -16,10 +16,7 @@ namespace MacroStarter
 {
 	class Program
 	{
-		public static void Main(string[] args)
-		{
-			if (args[0]=="help") {
-				Console.Write(@"Valid arguments example: 
+		const string help = @"Valid arguments example: 
 ""-Clear"" ""-LU c:\Users\Ondra\Documents\SharpDevelop Projects"" ""-RU c:\Users\Ondra"" ""-RL c:\Users\Ondra\Documents\SharpDevelop Projects""
 
 Must have """"
@@ -30,8 +27,15 @@ Target folder without \ at the end
 -Rl right table lock tab
 -Clear clear all unlocked tabs
 
-For keep TC window size and position, you must first once save position in TC configuration menu."
-			);
+For keep TC window size and position, you must first once save position in TC configuration menu.
+
+Macro is looking for standart TC and ini file locations. You can difine your locations in files INIDefinedPath.ini and TCDefinedPath.ini";
+		
+		public static void Main(string[] args)
+		{
+			
+			if (args.Length<1||args[0]=="help") {
+				Console.Write(help);
 				Console.ReadKey(false);
 				return;
 			}

@@ -51,11 +51,28 @@ namespace TotalCommanderMacro
 		public myINI(string iniPath)
 		{
 			_iniPath = iniPath;
-			
+
 			string text = null;
-			using (var rd = new StreamReader(_iniPath,Encoding.Default)) {
-				text = rd.ReadToEnd();
+			int count = 10;
+			bool ok = false;
+			while (!ok&&count>0) {
+				try {
+					using (var rd = new StreamReader(_iniPath,Encoding.Default)) {
+						text = rd.ReadToEnd();
+					}
+					ok = true;
+				} catch  {
+					count--;
+					Console.WriteLine(_iniPath+" is using by another process! "+count+" attempts.");
+				}				
 			}
+			
+			if (!ok) {
+				Console.ReadKey(false);
+				return;
+			}
+
+			
 			
 			string[] lines = text.Split(new string[] {Environment.NewLine},StringSplitOptions.RemoveEmptyEntries);
 			foreach (var str in lines) {

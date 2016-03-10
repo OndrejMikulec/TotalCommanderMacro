@@ -1,0 +1,6 @@
+C:\Users\Ondra\Documents\SharpDevelop Projects\TotalCommanderMacro\MacroStarter\bin\Release\MacroStarter.exe.config
+C:\Users\Ondra\Documents\SharpDevelop Projects\TotalCommanderMacro\MacroStarter\bin\Release\MacroStarter.exe
+C:\Users\Ondra\Documents\SharpDevelop Projects\TotalCommanderMacro\MacroStarter\bin\Release\TotalCommanderMacro.dll
+C:\Users\Ondra\Documents\SharpDevelop Projects\TotalCommanderMacro\MacroStarter\bin\Release\TotalCommanderMacro.pdb
+C:\Users\Ondra\Documents\SharpDevelop Projects\TotalCommanderMacro\MacroStarter\obj\Release\MacroStarter.csprojResolveAssemblyReference.cache
+C:\Users\Ondra\Documents\SharpDevelop Projects\TotalCommanderMacro\MacroStarter\obj\Release\MacroStarter.exe
