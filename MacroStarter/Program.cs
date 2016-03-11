@@ -24,14 +24,14 @@ Mikulec.Ondrej@gmail.com
 ";
 		
 		const string help = @"Valid arguments example: 
-""-Clear"" ""-LU c:\Users\Ondra\Documents\SharpDevelop Projects"" ""-RU c:\Users\Ondra"" ""-RL c:\Users\Ondra\Documents\SharpDevelop Projects""
+""-Clear"" ""-LUP c:\Users\Ondra\Documents\SharpDevelop Projects"" ""-RUA c:\Users\Ondra"" ""-RLP c:\Users\Ondra\Documents\SharpDevelop Projects""
 
 Must have """"
 Target folder without \ at the end
--LU left table unlocked
--RU right table unlocked
--LL left table lock tab
--Rl right table lock tab
+-LUP left table unlocked push
+-RUA right table unlocked add
+-LLP left table lock tab push
+-RlA right table lock tab add
 -Clear clear all unlocked tabs
 
 For keep TC window size and position, you must first once save position in TC configuration menu.

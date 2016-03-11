@@ -11,13 +11,13 @@ Must have ""
 
 Target folder without \ at the end 
 
--LU left table unlocked 
+-LUP left table unlocked push
 
--RU right table unlocked 
+-RUA right table unlocked add 
 
--LL left table lock tab 
+-LLP left table lock tab push
 
--Rl right table lock tab 
+-RLA right table lock tab add
 
 -Clear clear all unlocked tabs 
 
