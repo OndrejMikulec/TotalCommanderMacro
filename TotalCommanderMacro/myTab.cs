@@ -32,14 +32,14 @@ namespace TotalCommanderMacro
 			}
 		}
 
-		public int Position { get; set;	}
+		public int InitialPosition { get; set;	}
 		
 		public myTab(string pth,int locked, int position,strana str )
 		{
 			_pth = pth;
 			_locked = locked == 1;
 			
-			Position = position;
+			InitialPosition = position;
 			Strana = str;
 		}
 		
@@ -48,7 +48,7 @@ namespace TotalCommanderMacro
 			_pth = pth;
 			_locked = locked;
 
-			Position = position;
+			InitialPosition = position;
 			Strana = str;
 		}
 	}

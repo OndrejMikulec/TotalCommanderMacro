@@ -96,18 +96,34 @@ namespace TotalCommanderMacro
 		{
 			setTabsToIni();
 			
-			using (var wr = new StreamWriter(_iniPath,false,Encoding.Default)) {
-				foreach (myAtribute at in _atributesList) {
-					if (!string.IsNullOrEmpty(at.Name)) {
-						wr.WriteLine(at.Name);
-						foreach (myValue vl in at.ValuesList) {
-							if (!string.IsNullOrEmpty(vl.ValName)&&!string.IsNullOrEmpty(vl.Value)) {
-								wr.WriteLine(vl.ValName+"="+vl.Value);
+			int count = 100;
+			bool ok = false;
+			while (!ok&&count>0) {
+				try {
+					using (var wr = new StreamWriter(_iniPath,false,Encoding.Default)) {
+						foreach (myAtribute at in _atributesList) {
+							if (!string.IsNullOrEmpty(at.Name)) {
+								wr.WriteLine(at.Name);
+								foreach (myValue vl in at.ValuesList) {
+									if (!string.IsNullOrEmpty(vl.ValName)&&!string.IsNullOrEmpty(vl.Value)) {
+										wr.WriteLine(vl.ValName+"="+vl.Value);
+									}
+								}
 							}
-						}
+						}						
 					}
-				}
-			}			
+					ok = true;
+				} catch  {
+					count--;
+					Console.WriteLine(_iniPath+" is using by another process! "+count+" attempts.");
+				}				
+			}
+			
+			if (!ok) {
+				Console.ReadKey(false);
+				return;
+			}
+			
 		}
 		
 		object[] GetTabs()
@@ -197,24 +213,37 @@ namespace TotalCommanderMacro
 			_rightTabs.RemoveAll(item => !item.Locked);
 		}
 		
-		public void AddTab(myTab oMyTab)
+		
+		public void PushTabToFirst(myTab oMyTab)
 		{
-			if (oMyTab.Strana == myTab.strana.L) {
-				while (_leftTabs.Find(item => item.Position==oMyTab.Position)!=null) {
-			       	oMyTab.Position +=1;
-				}
 			
-				_leftTabs.Add(oMyTab);
+			if (oMyTab.Strana == myTab.strana.L) {
+				List<myTab> tempList = new List<myTab>();
+				tempList.Add(oMyTab);
+				foreach (myTab tb in _leftTabs) {
+					tempList.Add(tb);
+				}
+				_leftTabs = tempList;
 			}
 			
 			if (oMyTab.Strana == myTab.strana.R) {
-				while (_rightTabs.Find(item => item.Position==oMyTab.Position)!=null) {
-				       	oMyTab.Position +=1;
+				List<myTab> tempList = new List<myTab>();
+				tempList.Add(oMyTab);
+				foreach (myTab tb in _rightTabs) {
+					tempList.Add(tb);
 				}
-				
-				_rightTabs.Add(oMyTab);				
-			}
+				_rightTabs = tempList;
+			}			
+		}
+		
+		public void AddTabToLast(myTab oMyTab)
+		{
 			
+			if (oMyTab.Strana == myTab.strana.L)
+				_leftTabs.Add(oMyTab);
+			
+			if (oMyTab.Strana == myTab.strana.R)
+				_rightTabs.Add(oMyTab);				
 		}
 		
 		
@@ -224,8 +253,7 @@ namespace TotalCommanderMacro
   			AtributesList.RemoveAll(item => item.Name == "[left]");
   			AtributesList.RemoveAll(item => item.Name == "[righttabs]");
   			AtributesList.RemoveAll(item => item.Name == "[lefttabs]");
-  			
-  			sortTabs();
+
   			
   			myAtribute right = new myAtribute("[right]");
   			if (_rightTabs.Count>0) {
@@ -295,27 +323,6 @@ namespace TotalCommanderMacro
   			
 
 		}
-		
-		void sortTabs()
-		{
-			List<myTab> tempList1 = new List<myTab>();
-			while (_leftTabs.Count>0) {
-				tempList1.Add(_leftTabs.Find(item1 => item1.Position==_leftTabs.Min(item2 => item2.Position)));
-				_leftTabs.Remove(_leftTabs.Find(item1 => item1.Position==_leftTabs.Min(item2 => item2.Position)));
-			}
-			
-			_leftTabs = tempList1;
-			
-			List<myTab> tempList2 = new List<myTab>();
-			while (_rightTabs.Count>0) {
-				tempList2.Add(_rightTabs.Find(item1 => item1.Position==_rightTabs.Min(item2 => item2.Position)));
-				_rightTabs.Remove(_rightTabs.Find(item1 => item1.Position==_rightTabs.Min(item2 => item2.Position)));
-			}
-			
-			_rightTabs = tempList2;
-		}
-		
-
 
 	}
 

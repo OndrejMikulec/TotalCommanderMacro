@@ -43,45 +43,37 @@ Macro is looking for standart TC and ini file locations. You can difine your loc
 		{
 			Console.Write(sign);
 			
-			if (args.Length<1||args[0]=="help") {
+			if (args.Length<1||args[0].ToLower()=="help") {
 				Console.Write(help);
 				Console.ReadKey(false);
 				return;
 			}
 			
 			List<string> argsL = args.ToList();
-			bool clear = argsL.RemoveAll(item => item == "-Clear") > 0;
+			bool clear = argsL.RemoveAll(item => item.ToLower() == "-clear") > 0;
 			
-			List<myTab> tabs = new List<myTab>();
+			List<myTab> tabsPush = new List<myTab>();
+			List<myTab> tabsAdd = new List<myTab>();
 			foreach (string arg in argsL) {
 				myTab.strana table = myTab.strana.L;
 				if (arg.Substring(1, 1) == "R")
 					table = myTab.strana.R;
 				
-				bool locked = arg.Substring(2,1)=="L";
+				bool locked = arg.Substring(2,1).ToLower()=="l";
 				
-				tabs.Add(new myTab(arg.Substring(4),locked,0,table));
+				if (arg.Substring(3, 1).ToLower() == "p")
+					tabsPush.Add(new myTab(arg.Substring(5), locked, 0, table));
+				if (arg.Substring(3, 1).ToLower() == "a")
+					tabsAdd.Add(new myTab(arg.Substring(5), locked, 0, table));
 
 			}
 			
-			if (!TabCheck(tabs)) {
+			if (!TabCheck(tabsPush)) {
 				Console.Write(@"Some of input paths do not exists or the arguments are fault!"); 
 				Console.ReadKey(false);
 				return;
 			}
 			
-			int positionL = 0;
-			int positionR = 0;
-			foreach (myTab tb in tabs) {
-				if (tb.Strana == myTab.strana.L) {
-					tb.Position = positionL;
-					positionL++;
-				}
-				if (tb.Strana == myTab.strana.R) {
-					tb.Position = positionR;
-					positionR++;
-				}
-			}
 			
 			myINI oMyIni = myTotalCommander.CloseTCGetIni();
 			
@@ -90,8 +82,11 @@ Macro is looking for standart TC and ini file locations. You can difine your loc
 				oMyIni.DeleteUnlockedTabsR();
 			}
 			
-			foreach (myTab tb in tabs)
-				oMyIni.AddTab(tb);
+			foreach (myTab tb in tabsPush)
+				oMyIni.PushTabToFirst(tb);
+			
+			foreach (myTab tb in tabsAdd)
+				oMyIni.AddTabToLast(tb);
 			
 			oMyIni.Save();
 			myTotalCommander.RunTotalCommander();

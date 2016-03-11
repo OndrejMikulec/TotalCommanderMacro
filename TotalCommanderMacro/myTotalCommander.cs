@@ -59,6 +59,8 @@ namespace TotalCommanderMacro
 				winRect.HasValue = false;
 			}
 			
+			System.Threading.Thread.Sleep(500);
+			
 			
 			bool definedINI = false;
 			readDefinedLocations( getDefinedINIPath(),out iniPath, out definedINI);
@@ -116,6 +118,26 @@ namespace TotalCommanderMacro
 			
 			if (!definedTC) {
 				MessageBox.Show("TC not found!");
+				return;
+			}
+			
+			string text = null;
+			int count = 100;
+			bool ok = false;
+			while (!ok&&count>0) {
+				try {
+					using (var rd = new StreamReader(iniPath,Encoding.Default)) {
+						text = rd.ReadToEnd();
+					}
+					ok = true;
+				} catch  {
+					count--;
+					Console.WriteLine(iniPath+" is using by another process! "+count+" attempts.");
+				}				
+			}
+			
+			if (!ok) {
+				Console.ReadKey(false);
 				return;
 			}
 			

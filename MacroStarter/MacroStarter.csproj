@@ -35,7 +35,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
     <StartAction>Project</StartAction>
-    <StartArguments>"-Clear" "-LU c:\Users\Ondra\Documents\SharpDevelop Projects"</StartArguments>
+    <StartArguments>"-Clear" "-LLP c:\Users\Ondra\Documents\SharpDevelop Projects" "-RLA c:\Users\Ondra\Documents\SharpDevelop Projects"</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -44,6 +44,8 @@
     <Optimize>True</Optimize>
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
     <DefineConstants>TRACE</DefineConstants>
+    <StartAction>Project</StartAction>
+    <StartArguments>"-Clear" "-LL c:\Users\Ondra\Documents\SharpDevelop Projects" "-RL c:\Users\Ondra\Documents\SharpDevelop Projects"</StartArguments>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp">
