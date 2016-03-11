@@ -1,5 +1,7 @@
 # Total Commander Macro
 Macro for managing tabs in Total Commander. Macro can close all unlocked tabs and add more definned tabs in locked or unlocked state. 
+
+TODO: Push and Add options, solve ini file reading/writing attemps, pause after TC closed, manage more TC opened
  
 Valid arguments example:
 
