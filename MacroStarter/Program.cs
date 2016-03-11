@@ -77,6 +77,9 @@ Macro is looking for standart TC and ini file locations. You can difine your loc
 			
 			myINI oMyIni = myTotalCommander.CloseTCGetIni();
 			
+			if (oMyIni == null)
+				return;
+			
 			if (clear) {
 				oMyIni.DeleteUnlockedTabsL();
 				oMyIni.DeleteUnlockedTabsR();

@@ -43,21 +43,27 @@ namespace TotalCommanderMacro
 		{
 			
 			Process[] processNames = Process.GetProcessesByName("TOTALCMD64");
+			Process proc = null;
 			if (processNames.Length>1) {
-				MessageBox.Show("Macro is writed for only one TC running!");
+				Form1 f = new Form1(processNames);
+				if (f.ShowDialog() == DialogResult.OK) {
+					proc = processNames[f.listBox1.SelectedIndex];
+				}
+			} else {
+				proc = processNames[0];
+			}
+			
+			if (proc==null) {
 				return null;
 			}
 			
 			var winRect = new Rect();
-			if (processNames.Length==1) {
-				IntPtr ptr = processNames[0].MainWindowHandle;
-				
-				GetWindowRect(ptr, ref winRect);
-				winRect.HasValue = true;
-				processNames[0].CloseMainWindow();
-			} else {
-				winRect.HasValue = false;
-			}
+			IntPtr ptr = proc.MainWindowHandle;
+			
+			GetWindowRect(ptr, ref winRect);
+			winRect.HasValue = true;
+			proc.CloseMainWindow();
+
 			
 			System.Threading.Thread.Sleep(500);
 			

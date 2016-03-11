@@ -1,4 +1,6 @@
 C:\Users\Ondra\Documents\SharpDevelop Projects\TotalCommanderMacro\TotalCommanderMacro\bin\Release\TotalCommanderMacro.dll.config
 C:\Users\Ondra\Documents\SharpDevelop Projects\TotalCommanderMacro\TotalCommanderMacro\bin\Release\TotalCommanderMacro.dll
-C:\Users\Ondra\Documents\SharpDevelop Projects\TotalCommanderMacro\TotalCommanderMacro\obj\Release\TotalCommanderMacro.csprojResolveAssemblyReference.cache
 C:\Users\Ondra\Documents\SharpDevelop Projects\TotalCommanderMacro\TotalCommanderMacro\obj\Release\TotalCommanderMacro.dll
+C:\Users\Ondra\Documents\SharpDevelop Projects\TotalCommanderMacro\TotalCommanderMacro\obj\Release\TotalCommanderMacro.csproj.GenerateResource.Cache
+C:\Users\Ondra\Documents\SharpDevelop Projects\TotalCommanderMacro\TotalCommanderMacro\obj\Release\TotalCommanderMacro.csprojResolveAssemblyReference.cache
+C:\Users\Ondra\Documents\SharpDevelop Projects\TotalCommanderMacro\TotalCommanderMacro\obj\Release\TotalCommanderMacro.Form1.resources
