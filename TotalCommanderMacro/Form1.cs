@@ -28,6 +28,8 @@ namespace TotalCommanderMacro
 		{
 			_processNames = processNames;
 			
+			StartPosition = FormStartPosition.CenterScreen;
+			
 			InitializeComponent();
 			
 			foreach (Process prc in _processNames) {

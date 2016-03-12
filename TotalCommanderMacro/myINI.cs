@@ -141,7 +141,7 @@ namespace TotalCommanderMacro
       			for (int i = 0; i <= rightTabs.ValuesList.Count-1; i++) {
   					if (rightTabs.ValuesList[i].ValName.Contains("_path")) {
   						tabsListRight.Add(new myTab(rightTabs.ValuesList[i].Value,
-  						                       int.Parse(rightTabs.ValuesList[i+1].Value.Substring(10,1)),
+  						                        int.Parse(getTabValue( rightTabs.ValuesList[i+1].Value,5)),
   						                       int.Parse(rightTabs.ValuesList[i+1].ValName.Substring(0,1)),myTab.strana.R));
       				}
       			}
@@ -151,7 +151,7 @@ namespace TotalCommanderMacro
       			for (int i = 0; i <= leftTabs.ValuesList.Count-1; i++) {
   					if (leftTabs.ValuesList[i].ValName.Contains("_path")) {
   						tabsListLeft.Add(new myTab(leftTabs.ValuesList[i].Value,
-  						                       int.Parse(leftTabs.ValuesList[i+1].Value.Substring(10,1)),
+  						                        int.Parse(getTabValue( leftTabs.ValuesList[i+1].Value,5)),
   						                       int.Parse(leftTabs.ValuesList[i+1].ValName.Substring(0,1)),myTab.strana.L));
       				}
       			}
@@ -322,6 +322,13 @@ namespace TotalCommanderMacro
 				_atributesList.Add(leftTabs);
   			
 
+		}
+		
+		string getTabValue(string value, int position)
+		{
+			string rv = value.Split(new char[]{'|'},StringSplitOptions.RemoveEmptyEntries)[position];
+			return rv;
+			
 		}
 
 	}

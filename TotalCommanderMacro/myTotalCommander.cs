@@ -10,7 +10,6 @@ using System;
 using System.IO;
 using System.Diagnostics;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Linq;
 using System.Windows.Forms;
 using System.Text;
@@ -23,24 +22,13 @@ namespace TotalCommanderMacro
 
 		public enum Side {L,R}
 		
-		[DllImport("user32.dll")]
-		public static extern bool GetWindowRect(IntPtr hwnd, ref Rect rectangle);
-		
-		public struct Rect {
-   		public int Left { get; set; }
-	   	public int Top { get; set; }
-	   	public int Right { get; set; }
-	   	public int Bottom { get; set; }
-   		public int Width { get { return Right-Left;}}
-	   	public int Height { get { return Bottom-Top;}}
-	   	public bool HasValue { get; set;}
-		}
-		
 		static string iniPath;
 		
 
 		public static myINI CloseTCGetIni()
 		{
+			
+			bool cancel = false;
 			
 			Process[] processNames = Process.GetProcessesByName("TOTALCMD64");
 			Process proc = null;
@@ -48,24 +36,22 @@ namespace TotalCommanderMacro
 				Form1 f = new Form1(processNames);
 				if (f.ShowDialog() == DialogResult.OK) {
 					proc = processNames[f.listBox1.SelectedIndex];
+				} else {
+					cancel = true;
 				}
-			} else {
+			}
+			if (processNames.Length==1) {
 				proc = processNames[0];
 			}
 			
-			if (proc==null) {
+			if (cancel) {
 				return null;
 			}
 			
-			var winRect = new Rect();
-			IntPtr ptr = proc.MainWindowHandle;
-			
-			GetWindowRect(ptr, ref winRect);
-			winRect.HasValue = true;
-			proc.CloseMainWindow();
-
-			
-			System.Threading.Thread.Sleep(500);
+			if (processNames.Length!=0) {
+				proc.CloseMainWindow();
+				System.Threading.Thread.Sleep(500);
+			}
 			
 			
 			bool definedINI = false;
@@ -81,30 +67,6 @@ namespace TotalCommanderMacro
 			}
 
 			myINI oMyIni = new myINI(iniPath);
-			
-			if (winRect.HasValue) {
-      			System.Drawing.Rectangle rec = System.Windows.Forms.Screen.PrimaryScreen.Bounds;
-      			myAtribute scr = oMyIni.AtributesList.Find(item => item.Name.Contains(rec.Width+"x"+rec.Height));
-      			if (scr!=null) {
-      				if (scr.ValuesList.Exists(item => item.ValName == "x")) {
-      					myValue x = scr.ValuesList.Find(item => item.ValName == "x");
-      					x.Value = winRect.Left.ToString();
-      				}
-      				if (scr.ValuesList.Exists(item => item.ValName == "y")) {
-      					myValue y = scr.ValuesList.Find(item => item.ValName == "y");
-      					y.Value = winRect.Top.ToString();
-      				}
-      				if (scr.ValuesList.Exists(item => item.ValName == "dx")) {
-      					myValue dx = scr.ValuesList.Find(item => item.ValName == "dx");
-      					dx.Value = winRect.Width.ToString();
-      				}
-      				if (scr.ValuesList.Exists(item => item.ValName == "dy")) {
-      					myValue dy = scr.ValuesList.Find(item => item.ValName == "dy");
-      					dy.Value = winRect.Height.ToString();
-      				}
- 
-      			} 
-  			}
 			
 			return oMyIni;
 			

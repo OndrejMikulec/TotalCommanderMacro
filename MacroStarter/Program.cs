@@ -34,8 +34,6 @@ Target folder without \ at the end
 -RlA right table lock tab add
 -Clear clear all unlocked tabs
 
-For keep TC window size and position, you must first once save position in TC configuration menu.
-
 Macro is looking for standart TC and ini file locations. You can difine your locations in files INIDefinedPath.ini and TCDefinedPath.ini
 ";
 		
