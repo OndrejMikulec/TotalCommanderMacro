@@ -2,13 +2,14 @@
 Macro for managing tabs in Total Commander. Macro can close all unlocked tabs and add more definned tabs in locked or unlocked state. 
 
 TODO: solve cancel, no TC running - myTotalCommander.cs 44-60
+      
       form 1 start position - centre screen
  
 Valid arguments example:
 
 "-Clear" "-LU c:\Users\Ondra\Documents\SharpDevelop Projects" "-RU c:\Users\Ondra" "-RL c:\Users\Ondra\Documents\SharpDevelop Projects"
  
-Must have "" 
+Must has "" 
 
 Target folder without \ at the end 
 
