@@ -3,7 +3,11 @@ Macro for managing tabs in Total Commander. Macro can close all unlocked tabs an
 
 TODO: solve cancel, no TC running - myTotalCommander.cs 44-60
       
-      form 1 start position - centre screen
+TODO: form 1 start position - centre screen
+
+TODO: delete window parameter reading
+
+TODO: solve tab |0|00|0| reading: return value.Split(new char[]{'|'},StringSplitOptions.RemoveEmptyEntries)[position];
  
 Valid arguments example:
 
